@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'aspecte'
+def versionFile = rootProject.file('./src/main/resources/version.txt')
+version = versionFile.text.trim()
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+task incrementVersion{
+    doLast {
+        def newV = version.toInteger() + 1
+        println(newV)
+        versionFile.setText(newV.toString())
+    }
+}
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+build{
+    incrementVersion
+}
